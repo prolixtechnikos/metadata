@@ -24,10 +24,16 @@ class PropertyMetadata implements \Serializable
      */
     public $name;
 
+    /**
+     * @var \ReflectionMethod
+     */
+    public $reflection;
+
     public function __construct(string $class, string $name)
     {
         $this->class = $class;
         $this->name = $name;
+        $this->reflection = new \ReflectionMethod($class, $name);
     }
 
     /**
@@ -56,5 +62,24 @@ class PropertyMetadata implements \Serializable
     public function unserialize($str)
     {
         list($this->class, $this->name) = unserialize($str);
+    }
+
+    /**
+     * @param object $obj
+     *
+     * @return mixed
+     */
+    public function getValue($obj)
+    {
+        return $this->reflection->getValue($obj);
+    }
+
+    /**
+     * @param object $obj
+     * @param string $value
+     */
+    public function setValue($obj, $value)
+    {
+        $this->reflection->setValue($obj, $value);
     }
 }

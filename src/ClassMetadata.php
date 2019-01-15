@@ -34,6 +34,8 @@ class ClassMetadata implements \Serializable
      */
     public $fileResources = [];
 
+    public $reflection;
+
     /**
      * @var int
      */
@@ -43,6 +45,7 @@ class ClassMetadata implements \Serializable
     {
         $this->name = $name;
         $this->createdAt = time();
+        $this->reflection = new \ReflectionClass($name);
     }
 
     public function addMethodMetadata(MethodMetadata $metadata): void
@@ -109,5 +112,6 @@ class ClassMetadata implements \Serializable
             $this->fileResources,
             $this->createdAt
             ) = unserialize($str);
+        $this->reflection = new \ReflectionClass($this->name);
     }
 }
