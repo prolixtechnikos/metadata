@@ -33,7 +33,7 @@ class PropertyMetadata implements \Serializable
     {
         $this->class = $class;
         $this->name = $name;
-        $this->reflection = new \ReflectionMethod($class, $name);
+        //$this->reflection = new \ReflectionMethod($class, $name);
     }
 
     /**
@@ -80,6 +80,8 @@ class PropertyMetadata implements \Serializable
      */
     public function setValue($obj, $value)
     {
-        $this->reflection->setValue($obj, $value);
+        if($this->reflection){
+            $this->reflection->setValue($obj, $value);
+        }
     }
 }
