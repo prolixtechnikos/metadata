@@ -33,7 +33,8 @@ class PropertyMetadata implements \Serializable
     {
         $this->class = $class;
         $this->name = $name;
-        //$this->reflection = new \ReflectionMethod($class, $name);
+        $this->reflection = new \ReflectionProperty($class, $name);
+        $this->reflection->setAccessible(true);
     }
 
     /**
